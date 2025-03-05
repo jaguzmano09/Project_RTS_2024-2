@@ -90,20 +90,39 @@ void process_command(char *command)
         servo_set_state(SERVO_CLOSED);
         free(words);
     }
-    else if (strcmp(words[0],"Reg")==0) {
-        int reg_num = words[1];
-        char hour = words[2];
-        char min = words[3];
-        char day_s = words[4];
-        char str_to_save[12];
-        // strcat(str_to_save, hour);
-        // strcat(str_to_save, min);
-        // strcat(str_to_save, day_s);
-        // save_reg_data(reg_num, &str_to_save);
-        // update_register(reg_num);
-        ESP_LOGI("Llegó","%s",words[4]);
+    else if (strcmp(words[0], "Reg") == 0) {
+        // Verificar que hay al menos 5 elementos
+        if (words[1] == NULL || words[2] == NULL || words[3] == NULL || words[4] == NULL) {
+            ESP_LOGE("Error", "Comando incompleto");
+            free(words);
+            return;
+        }
+    
+        // Convertir el número de registro a entero
+        int reg_num = atoi(words[1]);
+    
+        // Asignar los valores de hora, minuto y día como cadenas
+        char *hour = words[2];
+        char *min = words[3];
+        char *day_s = words[4];
+    
+        // Crear la cadena a guardar
+        char str_to_save[12] = "";
+        strncat(str_to_save, hour, sizeof(str_to_save) - strlen(str_to_save) - 1);
+        strncat(str_to_save, min, sizeof(str_to_save) - strlen(str_to_save) - 1);
+        strncat(str_to_save, day_s, sizeof(str_to_save) - strlen(str_to_save) - 1);
+    
+        // Guardar los datos en el registro y actualizarlo
+        save_reg_data(reg_num, str_to_save);
+        update_register(reg_num);
+    
+        // Imprimir en el log
+        ESP_LOGI("Llegó", "%s", str_to_save);
+    
+        // Liberar memoria de words
         free(words);
     }
+    
 
     else {
             send_uart_response("ERROR: Invalid command");

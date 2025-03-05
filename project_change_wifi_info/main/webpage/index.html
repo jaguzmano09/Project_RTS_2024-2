@@ -67,12 +67,82 @@
 	 </section>
  
 	 <section id="MANUAL_MODE" class="card">
-		 <h2>🛠️ Manual Mode</h2>
+		 <h2>🛠️ Window Manual Mode</h2>
 		 <button onclick="open_window()"> OPEN</button>
 		 <button onclick="close_window()"> CLOSE</button>
 		 
 	 </section>
  </div>
- 
+ 	<section class="card">
+		<div id="Configreading">
+		<h2>📖 Configuración de registros</h2>
+		<label id="reg_1">Registro 1: </label><br>
+		<label id="reg_2">Registro 2: </label><br>
+		<label id="reg_3">Registro 3: </label><br>
+		<label id="reg_4">Registro 4: </label><br>
+		<label id="reg_5">Registro 5: </label><br>
+		<label id="reg_6">Registro 6: </label><br>
+		<label id="reg_7">Registro 7: </label><br>
+		<label id="reg_8">Registro 8: </label><br>
+		<label id="reg_9">Registro 9: </label><br>
+		<label id="reg_10">Registro 10: </label><br>
+		</div>
+	</section>
+
+	<section class="card">
+		<div id="Insert_mem">
+			<!-- Dropdown for selecting numbers 1 to 10 -->
+			<label for="selectNumber">Selecciona el registro a modificar:</label>
+			<select id="selectNumber" name="selectNumber" value="1">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+			</select>
+			<br><br>
+
+		<!-- Input fields for configuring time -->
+		<label for="hours">Hora:</label>
+		<input type="number" id="hours" name="hours" min="0" max="23" value="12">
+
+		<label for="minutes">Minutos:</label>
+		<input type="number" id="minutes" name="minutes" min="0" max="59" value="30">
+
+		<br><br>
+
+		<!-- Checkboxes for selecting days of the week -->
+		<label>Días de la semana:</label><br>
+		<input type="checkbox" id="day_mon" name="day_mon" value="Monday" checked>
+		<label for="day_mon">Lunes</label>
+
+		<input type="checkbox" id="day_tue" name="day_tue" value="Tuesday">
+		<label for="day_tue">Martes</label>
+
+		<input type="checkbox" id="day_wed" name="day_wed" value="Wednesday">
+		<label for="day_wed">Miércoles</label>
+
+		<input type="checkbox" id="day_thu" name="day_thu" value="Thursday">
+		<label for="day_thu">Jueves</label>
+
+		<input type="checkbox" id="day_fri" name="day_fri" value="Friday">
+		<label for="day_fri">Viernes</label>
+
+		<input type="checkbox" id="day_sat" name="day_sat" value="Saturday">
+		<label for="day_sat">Sábado</label>
+
+		<input type="checkbox" id="day_sun" name="day_sun" value="Sunday">
+		<label for="day_sun">Domingo</label>
+		<br>
+		<button onclick="send_register()">Enviar Registro</button>
+		<button onclick="getregValues()">Leer registro</button>
+		<button onclick="erase_reg()">Borrar registro</button>
+		</div>
+	</section>
  </body>
 <html>

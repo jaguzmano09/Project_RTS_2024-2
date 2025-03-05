@@ -417,17 +417,157 @@ function brigthness_up()
 }
 
 //MARK: TIME
+/**
+ * Updates the time.
+ */
 function updateTime() {
 		$.getJSON('/get_time.json', function(data) {
 			$("#esp32_time").text(data["time"]);
 		});
 }
 
+/**
+ * Sets the interval for getting the updated time.
+ * @returns {number} The interval for updating the time.
+ */
 function setGETtime() {
 	setInterval(updateTime, 1000);
 }
 
+//MARK: Send_register
+/**
+ * Send register function.
+ */
+function send_register()
+{
+    // Assuming you have selectedNumber, hours, minutes variables populated from your form
+    selectedNumber = $("#selectNumber").val();
+    hours = $("#hours").val();
+    minutes = $("#minutes").val();
+    
+    // Create an array for selected days
+    var selectedDays = [];
+    if ($("#day_mon").prop("checked")) selectedDays.push("1");
+	else selectedDays.push("0");
+    if ($("#day_tue").prop("checked")) selectedDays.push("1");
+	else selectedDays.push("0");
+    if ($("#day_wed").prop("checked")) selectedDays.push("1");
+	else selectedDays.push("0");
+    if ($("#day_thu").prop("checked")) selectedDays.push("1");
+	else selectedDays.push("0");
+    if ($("#day_fri").prop("checked")) selectedDays.push("1");
+	else selectedDays.push("0");
+    if ($("#day_sat").prop("checked")) selectedDays.push("1");
+	else selectedDays.push("0");
+    if ($("#day_sun").prop("checked")) selectedDays.push("1");
+	else selectedDays.push("0");
 
+    // Create an object to hold the data to be sent in the request body
+    var requestData = {
+        'selectedNumber': selectedNumber,
+        'hours': hours,
+        'minutes': minutes,
+        'selectedDays': selectedDays,
+        'timestamp': Date.now()
+    };
+
+    // Serialize the data object to JSON
+    var requestDataJSON = JSON.stringify(requestData);
+
+	$.ajax({
+		url: '/regchange.json',
+		dataType: 'json',
+		method: 'POST',
+		cache: false,
+		data: requestDataJSON, // Send the JSON data in the request body
+		contentType: 'application/json', // Set the content type to JSON
+		success: function(response) {
+		  // Handle the success response from the server
+		  console.log(response);
+		},
+		error: function(xhr, status, error) {
+		  // Handle errors
+		  console.error(xhr.responseText);
+		}
+	  });
+
+}
+
+
+//MARK:Read_register
+/**
+ * Read register function.
+ */	
+function read_reg()
+{
+	$.ajax({
+		url: '/readreg.json',
+		dataType: 'json',
+		method: 'POST',
+		cache: false,
+	});
+
+}
+
+//MARK: Get_Reg
+/**
+ * Gets the register values.
+ */
+function getregValues()
+{
+	$.getJSON('/read_regs.json', function(data) {
+		$("#reg_1").text(data["reg1"]);
+		$("#reg_2").text(data["reg2"]);
+		$("#reg_3").text(data["reg3"]);
+		$("#reg_4").text(data["reg4"]);
+		$("#reg_5").text(data["reg5"]);
+		$("#reg_6").text(data["reg6"]);
+		$("#reg_7").text(data["reg7"]);
+		$("#reg_8").text(data["reg8"]);
+		$("#reg_9").text(data["reg9"]);
+		$("#reg_10").text(data["reg10"]);
+	});
+}
+
+function setgetregValues(){
+	setInterval(getregValues, 1000);
+}
+
+
+//MARK: Erase_Reg
+/**
+ * Erase register function.
+ */
+function erase_reg()
+{
+    // Assuming you have selectedNumber, hours, minutes variables populated from your form
+    selectedNumber = $("#selectNumber").val();
+    // Create an object to hold the data to be sent in the request body
+    var requestData = {
+        'selectedNumber': selectedNumber,
+        'timestamp': Date.now()
+    };
+
+    // Serialize the data object to JSON
+    var requestDataJSON = JSON.stringify(requestData);
+
+	$.ajax({
+		url: '/regerase.json',
+		dataType: 'json',
+		method: 'POST',
+		cache: false,
+		data: requestDataJSON, // Send the JSON data in the request body
+		contentType: 'application/json', // Set the content type to JSON
+		success: function(response) {
+		  // Handle the success response from the server
+		  console.log(response);
+		},
+		error: function(xhr, status, error) {
+		  // Handle errors
+		  console.error(xhr.responseText);
+		}
+	  });
+}
 
 
 

@@ -16,6 +16,8 @@ This project implements a web control panel to manage different functionalities 
 
 - UART Control: Enables and disables sending data over UART.
 
+- Register: Save, delete and display register in the web.
+
 
 ## How to use example
 We encourage the users to use the example as a template for the new projects.

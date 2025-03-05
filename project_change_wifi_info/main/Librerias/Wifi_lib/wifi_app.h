@@ -86,6 +86,12 @@
  void load_wifi_credentials(char *ssid, char *password);
  static void wifi_app_connect_sta(void);
  void check_sta_connection_state( void );
+ // Function registers
+ esp_err_t read_reg_data(char *str_to_save ,uint8_t register_num);
+ void save_reg_data(uint8_t register, char *str) ;
+ void initialize_registers(void);
+ void update_register(int reg_to_update);
+ void erase_reg_data(uint8_t register_num);
 
  /**
   * Sends a message to the queue
