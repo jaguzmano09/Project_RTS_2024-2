@@ -41,6 +41,31 @@ function getFileInfo()
     document.getElementById("file_info").innerHTML = "<h4>File: " + file.name + "<br>" + "Size: " + file.size + " bytes</h4>";
 }
 
+//MARK: MANUAL_MODE
+function open_window()
+{	
+	$.ajax({
+		url: '/OPEN_WINDOW.json',
+		dataType: 'json',
+		method: 'POST',
+		cache: false,
+	});
+
+}
+
+function close_window()
+{	
+	$.ajax({
+		url: '/CLOSE_WINDOW.json',
+		dataType: 'json',
+		method: 'POST',
+		cache: false,
+	});
+
+}
+
+
+
 //MARK: Update_firware
 /**
  * Handles the firmware update.

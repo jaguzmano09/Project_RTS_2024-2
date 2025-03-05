@@ -44,30 +44,25 @@ void send_uart_response(const char *message) {
 /** 
  * @brief Converts a string to an array of command strings. 
  */
-void str_to_chars(const char *input, char comm[3][1025]) {
-    // Copy the original string
-    char copy[1025]; 
-    strncpy(copy, input, 1025 - 1);
-    copy[1025 - 1] = '\0';
+void  str_to_chars(const char *input, char ***words) {
+    char copy[1025]; // Make a copy of the original string
+    strncpy(copy, input, sizeof(copy) - 1);
+    copy[sizeof(copy) - 1] = '\0';
 
-    // Tokenize the string
-    const char delim[] = "_";
-    char *token = strtok(copy, delim);
+    const char delimitador[] = " ";
+    char *token = strtok(copy, delimitador);
+    
+    int count = 0;
+    *words = NULL;
 
-    // Copy the tokens to the output array
-    for (int i = 0; i < 3; i++) {
-        if (token != NULL) {
-            // Copy the token to the output array
-            strncpy(comm[i], token, 1025 - 1);
-            // Null-terminate the string
-            comm[i][1025 - 1] = '\0';
-            // Get the next token
-            token = strtok(NULL, delim);
-        } else {
-            // Null-terminate the string
-            comm[i][0] = '\0';
-        }
+    while (token != NULL) {
+        *words = realloc(*words, (count + 1) * sizeof(char *));
+        (*words)[count] = malloc(strlen(token) + 1);
+        strcpy((*words)[count], token);
+        count++;
+        token = strtok(NULL, delimitador);
     }
+
 }
 
 
@@ -77,136 +72,46 @@ void str_to_chars(const char *input, char comm[3][1025]) {
 void process_command(char *command) 
 {
     // TEMP_ONOFF=(10,sizeof(int));
-    int temp;// Variable to store the temperature
+   if (command != NULL){
 
-    /*Variables to store the limits of the RGB LED*/ 
-    int red_min; // Variable to store the minimum red limit
-    int red_max; // Variable to store the maximum red limit
-    int green_min; // Variable to store the minimum green limit
-    int green_max; // Variable to store the maximum green limit
-    int blue_min; // Variable to store the minimum blue limit
-    int blue_max; // Variable to store the maximum blue limit
+    char **words;
 
-    // If the temperature is received
-    if (xQueueReceive(TEMP_Q, &temp, pdMS_TO_TICKS(500))) {
-        // If the string is not null
-        if (command!= NULL){ 
-        //if string is not null
-        char (*comm)[1025] = malloc(3 * 1025); // Allocate memory for the command
-        str_to_chars(command,comm);// Convert the string to an array of characters
-            /*If the command is "GET_TEMP" */    
-            if (strcmp(command, "TEMP_ON") == 0) {
-                // Send the temperature through the UART
-                int status=1;
-                xQueueSend(TEMP_ONOFF,&status,pdMS_TO_TICKS(0));
-
-            } 
-            else if (strcmp(command, "TEMP_OFF") == 0){
-                int status=2;
-                xQueueSend(TEMP_ONOFF,&status,pdMS_TO_TICKS(0));
-            }
-            /* If command contain "RED" */
-            else if (strcmp(comm[1],"RED")==0)
-            {
-                // If the command is "MIN"
-                if (strcmp(comm[0],"MIN")==0){
-                    // Store the minimum red limit
-                    red_min=atoi(comm[2]);
-                    // Send message to UART
-                    send_uart_response("Red minimum limit set\n");
-                    // Send the minimum red limit to the queue
-                    xQueueSend(Lim_min_red,&red_min,pdMS_TO_TICKS(0));
-                    // free(comm);// Free the memory
-                }
-                // If the command is "MAX"
-                else if (strcmp(comm[0],"MAX")==0){
-                    // Store the maximum red limit
-                    red_max=atoi(comm[2]);
-                    // Send message to UART
-                    send_uart_response("Red maximum limit set\n");
-                    // Send the maximum red limit to the queue
-                    xQueueSend(Lim_max_red,&red_max,pdMS_TO_TICKS(0));
-                    free(comm);// Free the memory
-                }
-                else{
-                    // Send a response through the UART
-                    send_uart_response("Command invalid\n");
-                    free(comm);// Free the memory
-                }
-            }
-            /* If command contain "GREEN" */
-            else if (strcmp(comm[1],"GREEN")==0)
-            {
-                // If the command is "MIN"
-                if (strcmp(comm[0],"MIN")==0){
-                    // Store the minimum green limit
-                    green_min=atoi(comm[2]);
-                    // Send message to UART
-                    send_uart_response("Green minimum limit set\n");
-                    // Send the minimum green limit to the queue
-                    xQueueSend(Lim_min_green,&green_min,pdMS_TO_TICKS(0));
-                    free(comm);// Free the memory
-                }
-                // If the command is "MAX"
-                else if (strcmp(comm[0],"MAX")==0){
-                    // Store the maximum green limit
-                    green_max=atoi(comm[2]);
-                    // Send message to UART
-                    send_uart_response("Green maximum limit set\n");
-                    // Send the maximum green limit to the queue
-                    xQueueSend(Lim_max_green,&green_max,pdMS_TO_TICKS(0));
-                    free(comm);// Free the memory
-                }
-                else{
-                    // Send a response through the UART
-                    send_uart_response("Command invalid\n");
-                    free(comm);// Free the memory
-                }
-            }
-            /* If command contain "BLUE" */
-            else if (strcmp(comm[1],"BLUE")==0)
-            {
-                // If the command is "MIN"
-                if (strcmp(comm[0],"MIN")==0){
-                    // Store the minimum blue limit
-                    blue_min=atoi(comm[2]);
-                    // Send message to UART
-                    send_uart_response("Blue minimum limit set\n");
-                    // Send the minimum blue limit to the queue
-                    xQueueSend(Lim_min_blue,&blue_min,pdMS_TO_TICKS(0));
-                    free(comm); // Free the memory
-                }
-                // If the command is "MAX"
-                else if (strcmp(comm[0],"MAX")==0){
-                    // Store the maximum blue limit
-                    blue_max=atoi(comm[2]);
-                    // Send message to UART
-                    send_uart_response("Blue maximum limit set\n");
-                    // Send the maximum blue limit to the queue
-                    xQueueSend(Lim_max_blue,&blue_max,pdMS_TO_TICKS(0));
-                    free(comm); // Free the memory
-                }
-                else{
-                    // Send a response through the UART
-                    send_uart_response("Command invalid\n");
-                    free(comm); // Free the memory
-                }
-            }
-            else {
-                // Send a response through the UART
-                send_uart_response("Command invalid\n");
-            }
-        }
-        else {
-            // Send a response through the UART
-            send_uart_response("Command invalid\n");
-        }
+    str_to_chars(command, &words);
+  
+    
+    if (strcmp( words[0] , "open") ==0 ) {
+        //setear servo en 180°
+        servo_set_state(SERVO_OPEN);
+        free(words);
+        
+    } 
+    else if (strcmp(words[0],"close")==0) {
+        //setear servo en 0°
+        servo_set_state(SERVO_CLOSED);
+        free(words);
     }
+    else if (strcmp(words[0],"Reg")==0) {
+        int reg_num = words[1];
+        char hour = words[2];
+        char min = words[3];
+        char day_s = words[4];
+        char str_to_save[12];
+        // strcat(str_to_save, hour);
+        // strcat(str_to_save, min);
+        // strcat(str_to_save, day_s);
+        // save_reg_data(reg_num, &str_to_save);
+        // update_register(reg_num);
+        ESP_LOGI("Llegó","%s",words[4]);
+        free(words);
+    }
+
     else {
-        // Send a response through the UART
-        send_uart_response("Temperature could not be received\n");
+            send_uart_response("ERROR: Invalid command");
+            free(words);
     }
-    vTaskDelay(100 / portTICK_PERIOD_MS);
+
+
+   }
 }
 
 

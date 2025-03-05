@@ -6,6 +6,7 @@
 #include "Librerias/Adc_lib/ADC_NTC_POT.h"
 #include "Librerias/Uart_lib/COMANDS_UART.h"
 #include "Librerias/Wifi_lib/wifi_app.h"
+#include "Librerias/Servo_lib/servo_lib.h"
 #include "driver/gpio.h"
 #include "esp_event.h"
 #include "esp_log.h"
@@ -56,6 +57,7 @@ void app_main(void)
 
 	// Configure the LED
 	configure_led();
+	servo_init();
 	// Start Wifi
 	wifi_app_start();
 	init_obtain_time();

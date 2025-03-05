@@ -14,12 +14,14 @@
 #include "Librerias/Adc_lib/ADC_NTC_POT.h"
 #include "freertos/queue.h"
 #include "freertos/semphr.h"
+#include "Librerias/Servo_lib/servo_lib.h"
+#include "Librerias/Wifi_lib/wifi_app.h"
 
 // Define the UART configuration
-#define ECHO_UART_PORT_NUM UART_NUM_0           // UART port number
+#define ECHO_UART_PORT_NUM UART_NUM_1           // UART port number
 #define ECHO_UART_BAUD_RATE 115200              // Baud rate
-#define ECHO_TEST_TXD    (1)                    // Pin TX
-#define ECHO_TEST_RXD    (3)                    // Pin RX
+#define ECHO_TEST_TXD    (GPIO_NUM_17)                    // Pin TX
+#define ECHO_TEST_RXD    (GPIO_NUM_16)                    // Pin RX
 #define ECHO_TEST_RTS (UART_PIN_NO_CHANGE)      // Pin RTS
 #define ECHO_TEST_CTS (UART_PIN_NO_CHANGE)      // Pin CTS
 #define BUF_SIZE (1025)                         // buffer size
@@ -57,9 +59,9 @@ void process_command(char *command);
  * @brief Converts a string to an array of characters.
  *
  * @param input The input string.
- * @param comm The output array of characters.
+ * @param words The output array of characters.
  */
-void str_to_chars(const char *input, char comm[3][1025]);
+void  str_to_chars(const char *input, char ***words);
 
 /**
  * @brief Sends a response through the UART.

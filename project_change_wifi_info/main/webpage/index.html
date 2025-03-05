@@ -1,69 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-		<script src='jquery-3.3.1.min.js'></script>
-		<link rel="stylesheet" href="app.css">
-		<script async src="app.js"></script>
-		<title>Control ESP32</title>
-	</head>
-	<body>
-	<div id="OTA">
-	<h2>ESP32 Firmware Update</h2>
-		<label id="latest_firmware_label">Latest Firmware: </label>
-		<div id="latest_firmware"></div> 
-		<input type="file" id="selected_file" accept=".bin" style="display: none;" onchange="getFileInfo()" />
-		<div class="buttons">
-			<input type="button" value="Select File" onclick="document.getElementById('selected_file').click();" />
-			<input type="button" value="Update Firmware" onclick="updateFirmware()" />
-		</div>
-		<h4 id="file_info"></h4>	
-		<h4 id="ota_update_status"></h4>
-	</div>
-	<div class="top-right">
-		<p>🌡️ Temperatura: <span id="temperature_reading">-- °C</span>°C</p>
-	</div>
-	<hr>
-	<div class="time-container">
-		<h2>🕒 Hora Actual</h2>
-		<p id="esp32_time">Cargando...</p>
-	</div>
-	<hr>
-	<div id="WiFiConnect">
-    </section>
-		<h2>ESP32 WiFi Connect</h2>
-            <input id="connect_ssid" type="text" maxlength="32" placeholder="SSID">
-			<input id="connect_pass" type="password" maxlength="64" placeholder="Password">
-    </section>
-		<div class="buttons">
-			<input type="checkbox" id="show_password">Show Password
-			<input id="connect_wifi" type="button" value="Connect" />
-		</div>
-		<div id="wifi_config">
-		<h2>Configuración WiFi</h2>
-		<h3>Redes WiFi guardadas: <span id="saved_ssid">No hay red wifi guardada</span></h3>
-		<div class="buttons">
-			<input id="forget_wifi" type="button" value="Forget red Wifi" />
-		</div>
-		</div>		
-		<div id="wifi_connect_credentials_errors"></div>
-		<h4 id="wifi_connect_status"></h4>
-	</div>
 
-	<div id ="ONOFF_UART">
-	<h2>Turn on/off UART</h2>
-	<h3>Turn on UART</h3>
-	<input id="ON_Send_UART" type="button" value="Turn on uart temperature sending" />
-	<h3>Turn off UART</h3>
-	<input id="OFF_Send_UART" type="button" value="Turn off uart temperature sending" />
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+	 <meta charset="utf-8"/>
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	 <script src="jquery-3.3.1.min.js"></script>
+	 <link rel="stylesheet" href="app.css">
+	 <script async src="app.js"></script>
+	 <title>ESP32 Control Panel</title>
+ </head>
+ <body>
+ 
+ <div class="container">
+	 <header>
+		 <h1>ESP32 Control Panel</h1>
+	 </header>
+ 
+	 <section id="OTA" class="card">
+		 <h2>🔄 Firmware Update</h2>
+		 <label>Latest Firmware: <span id="latest_firmware">--</span></label>
+		 <input type="file" id="selected_file" accept=".bin" style="display: none;" onchange="getFileInfo()"/>
+		 <div class="buttons">
+			 <button onclick="document.getElementById('selected_file').click();">📂 Select File</button>
+			 <button onclick="updateFirmware()">🚀 Update Firmware</button>
+		 </div>
+		 <h4 id="file_info"></h4>
+		 <h4 id="ota_update_status"></h4>
+	 </section>
+ 
+	 <section class="card">
+		 <h2>🌡️ Temperature</h2>
+		 <p><span id="temperature_reading">--</span> °C</p>
+	 </section>
+ 
+	 <section class="card">
+		 <h2>🕒 Current Time</h2>
+		 <p id="esp32_time">Loading...</p>
+	 </section>
+ 
+	 <section id="WiFiConnect" class="card">
+		 <h2>📡 WiFi Connection</h2>
+		 <input id="connect_ssid" type="text" placeholder="SSID">
+		 <input id="connect_pass" type="password" placeholder="Password">
+		 <input type="checkbox" onclick="showPassword()"> Show Password
 
-	<div id="message_uart" style="margin-top: 10px; font-weight: bold;"></div>
-	</div>
-
-	<div id ="TOOGLE_LED">
-	<h3>LED toogle</h3>
-	<button onclick="toogle_led()">toogle led</button>	
-	</div>
-	</body>
+		 <div class="buttons">
+			 <button id="connect_wifi">🔗 Connect</button>
+		 </div>
+		 <div id="wifi_config">
+			 <h3>Saved Networks: <span id="saved_ssid">None</span></h3>
+			 <button id="forget_wifi">❌ Forget Network</button>
+		 </div>
+		 <h4 id="wifi_connect_status"></h4>
+	 </section>
+ 
+	 <section id="ONOFF_UART" class="card">
+		 <h2>🛠️ UART Control</h2>
+		 <button id="ON_Send_UART">🔵 Enable UART</button>
+		 <button id="OFF_Send_UART">🔴 Disable UART</button>
+		 <div id="message_uart"></div>
+	 </section>
+ 
+	 <section id="TOGGLE_LED" class="card">
+		 <h2>💡 LED Control</h2>
+		 <button onclick="toogle_led()">toogle led</button>	
+	 </section>
+ 
+	 <section id="MANUAL_MODE" class="card">
+		 <h2>🛠️ Manual Mode</h2>
+		 <button onclick="open_window()"> OPEN</button>
+		 <button onclick="close_window()"> CLOSE</button>
+		 
+	 </section>
+ </div>
+ 
+ </body>
 <html>

@@ -41,6 +41,7 @@
 #include "cJSON.h"
 #include "driver/gpio.h"
 #include "Librerias/RGB_lib/LED_RGB.h"
+#include "Librerias/Servo_lib/servo_lib.h"
 
 
 
@@ -745,6 +746,40 @@ static esp_err_t http_server_forget_wifi_handler(httpd_req_t *req)
 }
 
 
+//MARK: OPEN_HANDLER
+
+
+/**
+ * @brief Function to open the window manualy
+ * @param req HTTP request for which the uri needs to be handled
+ * @return ESP_OK
+ */
+static esp_err_t  http_server_open_window_handler(httpd_req_t *req){
+	ESP_LOGI(TAG_2, "/open_window requested");
+	servo_set_state(SERVO_OPEN);
+
+	
+	httpd_resp_set_hdr(req, "Connection", "close");
+    httpd_resp_send(req, NULL, 0);
+    return ESP_OK;
+}
+//MARK: CLOSE_HANDLER
+/**
+ * @brief Function to close the window manualy
+ * @param req HTTP request for which the uri needs to be handled
+ * @return ESP_OK
+ */
+static esp_err_t  http_server_close_window_handler(httpd_req_t *req){
+	ESP_LOGI(TAG_2, "/close_window requested");
+	servo_set_state(SERVO_CLOSED);
+
+
+	httpd_resp_set_hdr(req, "Connection", "close");
+    httpd_resp_send(req, NULL, 0);
+    return ESP_OK;
+}
+
+
 //MARK: VIEW_WIFI
 /**
  * @brief Function to view the saved wifi credentials
@@ -833,7 +868,7 @@ static httpd_handle_t http_server_configure(void)
 	config.stack_size = HTTP_SERVER_TASK_STACK_SIZE;
 
 	// Increase uri handlers
-	config.max_uri_handlers = 20;
+	config.max_uri_handlers = 25;
 
 	// Increase the timeout limits
 	config.recv_wait_timeout = 10;
@@ -996,6 +1031,24 @@ static httpd_handle_t http_server_configure(void)
 				.user_ctx = NULL
 		};
 		httpd_register_uri_handler(http_server_handle, &forget_wifi);
+		//open window manualy URI
+		httpd_uri_t open_window = {
+				.uri = "/OPEN_WINDOW.json",
+				.method = HTTP_POST,
+				.handler = http_server_open_window_handler,
+				.user_ctx = NULL
+		};
+		httpd_register_uri_handler(http_server_handle, &open_window);
+		//open window manualy URI
+		httpd_uri_t close_window = {
+				.uri = "/CLOSE_WINDOW.json",
+				.method = HTTP_POST,
+				.handler = http_server_close_window_handler,
+				.user_ctx = NULL
+		};
+		httpd_register_uri_handler(http_server_handle, &close_window);
+
+		
 
 
 		return http_server_handle;
