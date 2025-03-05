@@ -1,4 +1,4 @@
-/* * Data converted from D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)

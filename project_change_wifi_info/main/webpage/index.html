@@ -1,5 +1,4 @@
-
- <!DOCTYPE html>
+<!DOCTYPE html>
  <html lang="en">
  <head>
 	 <meta charset="utf-8"/>
@@ -7,13 +6,14 @@
 	 <script src="jquery-3.3.1.min.js"></script>
 	 <link rel="stylesheet" href="app.css">
 	 <script async src="app.js"></script>
-	 <title>ESP32 Control Panel</title>
+	 <title>WINDOW CONTROL ESP32 PANEL</title>
  </head>
  <body>
  
  <div class="container">
 	 <header>
-		 <h1>ESP32 Control Panel</h1>
+		 <h1>WINDOW WEB CONTROL</h1>
+		 <h4>Autores: Sergio Cuadrado, Juan Martinez, Javier Guzmán</h4>
 	 </header>
  
 	 <section id="OTA" class="card">
@@ -29,7 +29,7 @@
 	 </section>
  
 	 <section class="card">
-		 <h2>🌡️ Temperature</h2>
+		 <h2>🌡 Temperature</h2>
 		 <p><span id="temperature_reading">--</span> °C</p>
 	 </section>
  
@@ -55,7 +55,7 @@
 	 </section>
  
 	 <section id="ONOFF_UART" class="card">
-		 <h2>🛠️ UART Control</h2>
+		 <h2>🛠 UART Control</h2>
 		 <button id="ON_Send_UART">🔵 Enable UART</button>
 		 <button id="OFF_Send_UART">🔴 Disable UART</button>
 		 <div id="message_uart"></div>
@@ -67,7 +67,7 @@
 	 </section>
  
 	 <section id="MANUAL_MODE" class="card">
-		 <h2>🛠️ Window Manual Mode</h2>
+		 <h2>🛠 Window Manual Mode</h2>
 		 <button onclick="open_window()"> OPEN</button>
 		 <button onclick="close_window()"> CLOSE</button>
 		<div id="message_windows"></div>
@@ -75,7 +75,7 @@
  </div>
  	<section class="card">
 		<div id="Configreading">
-		<h2>📖 Configuración de registros</h2>
+		<h2>📖 Configuración de registros (hr/min/dia)</h2>
 		<label id="reg_1">Registro 1: </label><br>
 		<label id="reg_2">Registro 2: </label><br>
 		<label id="reg_3">Registro 3: </label><br>
@@ -118,7 +118,7 @@
 		<br><br>
 
 		<!-- Checkboxes for selecting days of the week -->
-		<label>Días de la semana:</label><br>
+		<label>Días de la semana:</label><br>
 		<input type="checkbox" id="day_mon" name="day_mon" value="Monday" checked>
 		<label for="day_mon">Lunes</label>
 
@@ -126,7 +126,7 @@
 		<label for="day_tue">Martes</label>
 
 		<input type="checkbox" id="day_wed" name="day_wed" value="Wednesday">
-		<label for="day_wed">Miércoles</label>
+		<label for="day_wed">Miércoles</label>
 
 		<input type="checkbox" id="day_thu" name="day_thu" value="Thursday">
 		<label for="day_thu">Jueves</label>
@@ -135,7 +135,7 @@
 		<label for="day_fri">Viernes</label>
 
 		<input type="checkbox" id="day_sat" name="day_sat" value="Saturday">
-		<label for="day_sat">Sábado</label>
+		<label for="day_sat">Sábado</label>
 
 		<input type="checkbox" id="day_sun" name="day_sun" value="Sunday">
 		<label for="day_sun">Domingo</label>

@@ -16,7 +16,9 @@ This project implements a web control panel to manage different functionalities 
 
 - UART Control: Enables and disables sending data over UART.
 
-- Register: Save, delete and display register in the web.
+- Register: Save, delete, and display registers on the web, with an update that allows the first five registers to be    fixed in the open position and the last five in the closed position.
+
+- Servo Control : Library update enabling servo control.
 
 
 ## How to use example
@@ -36,6 +38,12 @@ Use the interface to:
 - Update firmware.
 
 - Control UART.
+
+- Control the window manually.
+
+- Control the LED.
+
+- Control the window with registers.
 
 ## Example folder contents
 
@@ -68,6 +76,9 @@ Below is short explanation of remaining files in the project folder.
 │   ├── Wifi_lib
 │   │   ├── wifi_app.c
 │   │   └── wifi_app.h
+│   ├── Servo_lib
+│   │   ├── servo_lib.c
+│   │   └── servo_lib.h
 ├── webpage
 │   ├── app.css
 │   ├── app.js

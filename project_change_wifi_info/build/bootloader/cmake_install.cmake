@@ -1,4 +1,4 @@
-# Install script for directory: C:/ESP32/v5.3.1/esp-idf/components/bootloader/subproject
+# Install script for directory: C:/Users/Sergio/esp/v5.3.1/esp-idf/components/bootloader/subproject
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,12 +34,12 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/ESP32/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/bin/xtensa-esp32-elf-objdump.exe")
+  set(CMAKE_OBJDUMP "C:/Users/Sergio/.espressif/tools/xtensa-esp-elf/esp-13.2.0_20240530/xtensa-esp-elf/bin/xtensa-esp32-elf-objdump.exe")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/bootloader/esp-idf/cmake_install.cmake")
+  include("C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/bootloader/esp-idf/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/bootloader/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/bootloader/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/CMakeFiles/bootloader
-D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/CMakeFiles/bootloader.rule
-D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/CMakeFiles/bootloader-complete.rule
-D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/CMakeFiles/bootloader
+C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/CMakeFiles/bootloader.rule
+C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/CMakeFiles/bootloader-complete.rule
+C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+C:/Users/Sergio/Desktop/proyocto/Project_RTS_2024-2/project_change_wifi_info/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
