@@ -70,7 +70,7 @@
 		 <h2>🛠️ Window Manual Mode</h2>
 		 <button onclick="open_window()"> OPEN</button>
 		 <button onclick="close_window()"> CLOSE</button>
-		 
+		<div id="message_windows"></div>
 	 </section>
  </div>
  	<section class="card">
@@ -90,6 +90,7 @@
 	</section>
 
 	<section class="card">
+		<h2>Programacion ventana automatica</h2>
 		<div id="Insert_mem">
 			<!-- Dropdown for selecting numbers 1 to 10 -->
 			<label for="selectNumber">Selecciona el registro a modificar:</label>
@@ -109,10 +110,10 @@
 
 		<!-- Input fields for configuring time -->
 		<label for="hours">Hora:</label>
-		<input type="number" id="hours" name="hours" min="0" max="23" value="12">
+		<input type="number" id="hours" name="hours" min="00" max="23" value="12">
 
 		<label for="minutes">Minutos:</label>
-		<input type="number" id="minutes" name="minutes" min="0" max="59" value="30">
+		<input type="number" id="minutes" name="minutes" min="00" max="59" value="30">
 
 		<br><br>
 
@@ -142,7 +143,6 @@
 		<button onclick="send_register()">Enviar Registro</button>
 		<button onclick="getregValues()">Leer registro</button>
 		<button onclick="erase_reg()">Borrar registro</button>
-		</div>
 	</section>
  </body>
 <html>

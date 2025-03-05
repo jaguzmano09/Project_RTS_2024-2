@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "project_change_wifi_info",
-    "project_version":    "b3acc9f-dirty",
+    "project_version":    "eb303a8-dirty",
     "project_path":       "D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info",
     "idf_path":           "C:/ESP32/v5.3.1/esp-idf",
     "build_dir":          "D:/ESP32/Repositorio/Project_RTS_2024-2/project_change_wifi_info/build",

@@ -1,6 +1,6 @@
 /*
  * http_server.c
- * Modified by: Javier Leonardo Guzmán Olaya
+ * Modified by: Javier Guzmán , Sergio Cuadrado , Juan Martinez
  */
 
 //MARK: INCLUDE
@@ -70,6 +70,9 @@ static TaskHandle_t task_http_server_monitor = NULL;
 
 // Queue handle used to manipulate the main queue of events
 static QueueHandle_t http_server_monitor_queue_handle;
+
+// Variable global para manejar la tarea
+static TaskHandle_t compare_task_handle = NULL;
 
 
 
@@ -147,6 +150,73 @@ void GET_TEMP_FUNCTION(){
 		vTaskDelete(NULL);
     }
            
+}
+
+//MARK: Compare_Time_register
+/**
+ * @brief Function to compare the time with the time of the register
+ * @param req HTTP request for which the uri needs to be handled
+ * @return ESP_OK
+ */
+void compare_reg_time(void)
+{
+	time_t now = 0; // struct time
+    struct tm timeinfo = {0}; // struct info time
+	char compare_reg[100]; // Variable compare register
+	char compare_reg_2[100]; // Variable compare register 
+	char register_information_read[12]; // Buffer for read registers
+    register_information_read[11] = '\0'; // Asegurar null terminator
+	
+    // Read ten registers
+	while (1)
+	{
+    // Obtain actual time
+    time(&now);
+    localtime_r(&now, &timeinfo);
+
+    // Convert current time to string
+    char hora_actual[3];
+    char minuto_actual[3];
+    snprintf(hora_actual, sizeof(hora_actual), "%02d", timeinfo.tm_hour);
+    snprintf(minuto_actual, sizeof(minuto_actual), "%02d", timeinfo.tm_min);
+
+	// For read register
+    for (int i = 1; i <= 10; i++) {
+        if (read_reg_data(register_information_read, i) != ESP_OK) {
+            memset(register_information_read, '9', 6);
+            register_information_read[6] = '\0'; // Asegurar terminación nula
+        }
+
+        // Extract the hour and minutes from the record
+        char hora_registro[3]="00";
+        char minuto_registro[3]="00";
+
+        strncpy(hora_registro, register_information_read, 2);
+        hora_registro[2] = '\0';
+
+        strncpy(minuto_registro, register_information_read + 2, 2);
+        minuto_registro[2] = '\0';
+
+		// Compare register and time 
+        if (strcmp(hora_actual, hora_registro) == 0 && strcmp(minuto_actual, minuto_registro) == 0) {
+            printf("¡Coincidencia encontrada en el registro %d!\n", i);
+			// The first 5 register will be used to open the window.
+			if (i<=5){
+				servo_set_state(SERVO_OPEN);
+				printf("\nWindow open\n");
+				send_uart_response("\nWindow open\n");
+			}
+			// The last 5 register will be used to close the window.
+			else if (i>5){
+				servo_set_state(SERVO_CLOSED);
+				printf("\nWindow close\n");
+				send_uart_response("\nWindow close\n");
+			}
+		}
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
+	}
+	vTaskDelay(1000 / portTICK_PERIOD_MS);
+	}
 }
 
 
@@ -821,7 +891,6 @@ static esp_err_t http_server_get_saved_wifi_handler(httpd_req_t *req) {
 static esp_err_t http_server_get_time_handler(httpd_req_t *req)
 {
 	ESP_LOGI(TAG_2, "/get_time.json requested");
-	// init_obtain_time();
 	
 
     char json_response[100];
@@ -865,7 +934,7 @@ static esp_err_t http_server_read_register_handler(httpd_req_t *req)
     // Leer los 10 registros
     for (int i = 1; i <= 10; i++) {
         if (read_reg_data(register_information_read, i) != ESP_OK) {
-            memset(register_information_read, '0', 6);
+            memset(register_information_read, '?', 6);
             register_information_read[6] = '\0'; // Asegurar que sea cadena válida
         }
 
@@ -1127,7 +1196,6 @@ static esp_err_t http_server_get_register_json_handler(httpd_req_t *req)
 	if (read_reg_data( &register_information_read_10[0], 10 ) != ESP_OK ){
 		memset(&register_information_read_10[0], "9", 6);
 		sprintf(read_regs, "{\"reg10\":\"%c\"}", register_information_read_10[0]);
-
 	}
 	// Set the type of the response
 	httpd_resp_set_type(req, "application/json");

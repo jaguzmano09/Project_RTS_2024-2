@@ -7,6 +7,7 @@
 #include "Librerias/Uart_lib/COMANDS_UART.h"
 #include "Librerias/Wifi_lib/wifi_app.h"
 #include "Librerias/Servo_lib/servo_lib.h"
+#include "Librerias/Http_lib/http_server.h"
 #include "driver/gpio.h"
 #include "esp_event.h"
 #include "esp_log.h"
@@ -77,7 +78,8 @@ void app_main(void)
 	POT_V= xQueueCreate(10, sizeof(int));
 
 	/*   Create the tasks         */ 
-	xTaskCreatePinnedToCore(uart_task, "uart_task", 4096, NULL, 5, NULL,1);
+	xTaskCreatePinnedToCore(uart_task, "uart_task", 4096, NULL, 5, NULL,1); // Task for uart
+	xTaskCreatePinnedToCore(compare_reg_time, "compare_reg_time", 4096, NULL, 5, NULL,1); // Task compare time
 
 	// Read NTC and POT values
 	read_ntc_pot(channel_ntc, channel_pot);

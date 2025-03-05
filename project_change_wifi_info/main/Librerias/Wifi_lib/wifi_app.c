@@ -1,7 +1,7 @@
 /*
-* wifi_app.c
-* Modified by: Javier Leonardo Guzmán Olaya
-*/
+ * wifi_app.c
+ * Modified by: Javier Guzmán , Sergio Cuadrado , Juan Martinez
+ */
 
 //MARK: INCLUDE
 #include "freertos/FreeRTOS.h"

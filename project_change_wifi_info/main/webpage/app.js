@@ -44,6 +44,10 @@ function getFileInfo()
 //MARK: MANUAL_MODE
 function open_window()
 {	
+	var errorList = "";
+	// Muestra mensaje de éxito en la página
+	errorList += "<h4 class='rd'>Window open!</h4>";
+	$("#message_windows").html(errorList);
 	$.ajax({
 		url: '/OPEN_WINDOW.json',
 		dataType: 'json',
@@ -54,12 +58,18 @@ function open_window()
 }
 
 function close_window()
-{	
+{		
+	var errorList = "";
+	// Muestra mensaje de éxito en la página
+	errorList += "<h4 class='rd'>Window close!</h4>";
+	$("#message_windows").html(errorList);
 	$.ajax({
 		url: '/CLOSE_WINDOW.json',
 		dataType: 'json',
 		method: 'POST',
 		cache: false,
+        // alert("Window close");
+
 	});
 
 }
@@ -568,11 +578,6 @@ function erase_reg()
 		}
 	  });
 }
-
-
-
-
-
 
 
 

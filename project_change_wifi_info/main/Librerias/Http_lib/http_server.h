@@ -85,5 +85,7 @@ void toogle_led(void);
  */
 void GET_TEMP_FUNCTION();
 
+void compare_reg_time();
+
 
 #endif /* MAIN_HTTP_SERVER_H_ */
